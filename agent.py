@@ -17,6 +17,7 @@ from tools import care_entitlements as tool_care_entitlements
 from tools import cause_in_plain_words as tool_cause_in_plain_words
 from tools import departures_in_window as tool_departures_in_window
 from tools import reopen_stats as tool_reopen_stats
+from tools import seats_left as tool_seats_left
 
 MAX_TOOL_CALLS = 8 # Larkspur's own build capped the loop here; then a human takes over.
 
@@ -27,12 +28,14 @@ EXTRA_TOOLS: List[Dict[str, Any]] = [    # ✏️ Build 2, step 2.1: schemas for
     tool_departures_in_window.SCHEMA,
     tool_reopen_stats.TOOL_SCHEMA,
     tool_care_entitlements.TOOL_SCHEMA,
+    tool_seats_left.SCHEMA,
 ]
 LOCAL_TOOLS: Dict[str, Any] = {          # ✏️ Build 2, step 2.1: the functions behind them
     "cause_in_plain_words": tool_cause_in_plain_words.run,
     "departures_in_window": tool_departures_in_window.run,
     tool_reopen_stats.TOOL_SCHEMA["name"]: tool_reopen_stats.TOOL_FUNCTION,
     tool_care_entitlements.TOOL_SCHEMA["name"]: tool_care_entitlements.TOOL_FUNCTION,
+    "seats_left": tool_seats_left.run,
 }
 
 

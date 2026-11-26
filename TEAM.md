@@ -16,3 +16,4 @@ decides in the moment who does what.
 - Raghunath Ghosh
 - Deepika R
 - Kusha Shetty
+- Claude
