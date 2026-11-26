@@ -14,11 +14,20 @@ from support import (MODEL, SYSTEM_PROMPT, call_local, execute_tool, mcp_client,
                      new_session, next_available_day, record_tool_result,
                      runtime_preamble)
 
-MAX_TOOL_CALLS = 8  # Larkspur's own build capped the loop here; then a human takes over.
+from tools import fare_rules as tool_fare_rules
+from tools import next_available_day as tool_next_available_day
+
+MAX_TOOL_CALLS = 8 # Larkspur's own build capped the loop here; then a human takes over.
 
 TONE_ADDENDUM = ""                       # ✏️ Build 4, step 4.1, intelligence goal
-EXTRA_TOOLS: List[Dict[str, Any]] = []   # ✏️ Build 2, step 2.1: schemas for the tools you add
-LOCAL_TOOLS: Dict[str, Any] = {}         # ✏️ Build 2, step 2.1: the functions behind them
+EXTRA_TOOLS: List[Dict[str, Any]] = [   # ✏️ Build 2, step 2.1: schemas for the tools you add
+    tool_next_available_day.SCHEMA,
+    tool_fare_rules.SCHEMA,
+]
+LOCAL_TOOLS: Dict[str, Any] = {          # ✏️ Build 2, step 2.1: the functions behind them
+    "next_available_day": tool_next_available_day.run,
+    "fare_rules": tool_fare_rules.run,
+}
 
 
 def text_of(response) -> str:
