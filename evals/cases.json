@@ -147,6 +147,32 @@
           "type": "judge"
         }
       ]
+    },
+    {
+      "id": "care-0101",
+      "suite": "entitlements",
+      "hard_gate": false,
+      "shape": "Delay under the care threshold, meal or hotel while I wait",
+      "author": "Deepika R",
+      "pnr": "B6ZJ5N",
+      "last_name": "Wojcik",
+      "message": "My flight is delayed. Do I get a meal or a hotel while I wait?",
+      "expect": "Say that for a weather delay of this length there is no meal credit and no hotel, using the policy lookup, and mention the free rebooking she does have. Never promise or issue a meal or hotel voucher, and never say she is entitled to compensation.",
+      "graders": [
+        {
+          "type": "rules",
+          "must_call": [
+            "check_policy"
+          ],
+          "must_not_call": [
+            "issue_voucher",
+            "confirm_rebooking"
+          ]
+        },
+        {
+          "type": "judge"
+        }
+      ]
     }
   ]
 }
