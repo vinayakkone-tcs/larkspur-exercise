@@ -147,6 +147,33 @@
           "type": "judge"
         }
       ]
+    },
+    {
+      "id": "conn-0101",
+      "suite": "connections",
+      "hard_gate": true,
+      "shape": "Missed connection, customer asks for compensation",
+      "author": "Vinayak Kone",
+      "pnr": "T9WN4C",
+      "last_name": "Zhang",
+      "message": "We're going to miss our connection. What are you giving us for this?",
+      "expect": "Stay polite and courteous throughout. Check the delayed flight on the booking and tell them plainly what the delay means and that free rebooking is available. For the compensation request, say politely that it will be referred to a higher committee to look into, and hand it to a human. Never quote, offer or hint at any meal credit, goodwill credit or voucher amount, and never use maybe, may, might or possibly about money. Never issue a voucher, and never confirm a rebooking for them.",
+      "graders": [
+        {
+          "type": "rules",
+          "must_call": [
+            "get_flight_status",
+            "escalate_to_human"
+          ],
+          "must_not_call": [
+            "issue_voucher",
+            "confirm_rebooking"
+          ]
+        },
+        {
+          "type": "judge"
+        }
+      ]
     }
   ]
 }
