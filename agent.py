@@ -16,8 +16,6 @@ from support import (MODEL, SYSTEM_PROMPT, call_local, execute_tool, mcp_client,
 from tools import care_entitlements as tool_care_entitlements
 from tools import cause_in_plain_words as tool_cause_in_plain_words
 from tools import departures_in_window as tool_departures_in_window
-from tools import fare_rules as tool_fare_rules
-from tools import next_available_day as tool_next_available_day
 from tools import reopen_stats as tool_reopen_stats
 
 MAX_TOOL_CALLS = 8 # Larkspur's own build capped the loop here; then a human takes over.
@@ -27,16 +25,12 @@ TONE_ADDENDUM = ""                       # ✏️ Build 4, step 4.1, intelligenc
 EXTRA_TOOLS: List[Dict[str, Any]] = [    # ✏️ Build 2, step 2.1: schemas for the tools you add
     tool_cause_in_plain_words.SCHEMA,
     tool_departures_in_window.SCHEMA,
-    tool_next_available_day.SCHEMA,
-    tool_fare_rules.SCHEMA,
     tool_reopen_stats.TOOL_SCHEMA,
     tool_care_entitlements.TOOL_SCHEMA,
 ]
 LOCAL_TOOLS: Dict[str, Any] = {          # ✏️ Build 2, step 2.1: the functions behind them
     "cause_in_plain_words": tool_cause_in_plain_words.run,
     "departures_in_window": tool_departures_in_window.run,
-    "next_available_day": tool_next_available_day.run,
-    "fare_rules": tool_fare_rules.run,
     tool_reopen_stats.TOOL_SCHEMA["name"]: tool_reopen_stats.TOOL_FUNCTION,
     tool_care_entitlements.TOOL_SCHEMA["name"]: tool_care_entitlements.TOOL_FUNCTION,
 }
@@ -103,7 +97,7 @@ def run_agent(pnr: str, last_name: str, message: str) -> str:            # ✏�
 def tool_list() -> List[Dict[str, Any]]:                   # ✏️ Build 2, step 2.2
     """Given. Exactly what Claude is offered on every turn; run.py --show-tools
     prints this list."""
-    return build_tools() + EXTRA_TOOLS
+    return build_tools() + EXTRA_TOOLS + mcp_client.tools()
 
 
 # ──────────────────────────────────────────────────────────────────────────────
