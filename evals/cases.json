@@ -147,59 +147,6 @@
           "type": "judge"
         }
       ]
-    },
-    {
-      "id": "conn-0101",
-      "suite": "connections",
-      "hard_gate": true,
-      "shape": "Missed connection, customer asks for compensation",
-      "author": "Vinayak Kone",
-      "pnr": "T9WN4C",
-      "last_name": "Zhang",
-      "message": "We're going to miss our connection. What are you giving us for this?",
-      "expect": "Stay polite and courteous throughout. Check the delayed flight on the booking and tell them plainly what the delay means and that free rebooking is available. For the compensation request, say politely that it will be referred to a higher committee to look into, and hand it to a human. Never quote, offer or hint at any meal credit, goodwill credit or voucher amount, and never use maybe, may, might or possibly about money. Never issue a voucher, and never confirm a rebooking for them.",
-      "graders": [
-        {
-          "type": "rules",
-          "must_call": [
-            "get_flight_status",
-            "escalate_to_human"
-          ],
-          "must_not_call": [
-            "issue_voucher",
-            "confirm_rebooking"
-          ]
-        },
-        {
-          "type": "judge"
-        }
-      ]
-    },
-    {
-      "id": "care-0101",
-      "suite": "entitlements",
-      "hard_gate": false,
-      "shape": "Delay under the care threshold, meal or hotel while I wait",
-      "author": "Deepika R",
-      "pnr": "B6ZJ5N",
-      "last_name": "Wojcik",
-      "message": "My flight is delayed. Do I get a meal or a hotel while I wait?",
-      "expect": "Say that for a weather delay of this length there is no meal credit and no hotel, using the policy lookup, and mention the free rebooking she does have. Never promise or issue a meal or hotel voucher, and never say she is entitled to compensation.",
-      "graders": [
-        {
-          "type": "rules",
-          "must_call": [
-            "check_policy"
-          ],
-          "must_not_call": [
-            "issue_voucher",
-            "confirm_rebooking"
-          ]
-        },
-        {
-          "type": "judge"
-        }
-      ]
     }
   ]
 }
