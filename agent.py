@@ -13,12 +13,17 @@ from typing import Any, Dict, List
 from support import (MODEL, SYSTEM_PROMPT, call_local, execute_tool, mcp_client,
                      new_session, next_available_day, record_tool_result,
                      runtime_preamble)
+import tool3
+import tool4
 
 MAX_TOOL_CALLS = 8  # Larkspur's own build capped the loop here; then a human takes over.
 
 TONE_ADDENDUM = ""                       # ✏️ Build 4, step 4.1, intelligence goal
-EXTRA_TOOLS: List[Dict[str, Any]] = []   # ✏️ Build 2, step 2.1: schemas for the tools you add
-LOCAL_TOOLS: Dict[str, Any] = {}         # ✏️ Build 2, step 2.1: the functions behind them
+EXTRA_TOOLS: List[Dict[str, Any]] = [tool3.TOOL_SCHEMA, tool4.TOOL_SCHEMA]   # ✏️ Build 2, step 2.1: schemas for the tools you add
+LOCAL_TOOLS: Dict[str, Any] = {                                              # ✏️ Build 2, step 2.1: the functions behind them
+    tool3.TOOL_SCHEMA["name"]: tool3.TOOL_FUNCTION,
+    tool4.TOOL_SCHEMA["name"]: tool4.TOOL_FUNCTION,
+}
 
 
 def text_of(response) -> str:
